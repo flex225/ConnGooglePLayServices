@@ -49,19 +49,23 @@ public class BackgroundRequest extends AsyncTask<String, Void, String> {
             BufferedReader br = new BufferedReader(is);
             StringBuilder sb = new StringBuilder();
             String line;
+
             while ((line = br.readLine()) != null) {
                 sb.append(line + "\n");
             }
             br.close();
+
             JSONObject jsonObject = new JSONObject(sb.toString());
             JSONArray jsonArray = jsonObject.getJSONArray("items");
             sb.setLength(0);
+
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject_i = jsonArray.getJSONObject(i);
                 sb.append("TITLE: " + jsonObject_i.getString("title") + "\n");
                 sb.append("URL: " + jsonObject_i.getString("link") + "\n");
                 sb.append("CONTENT: " + jsonObject_i.getString("snippet") + "\n\n");
             }
+
             return sb.toString();
 
         } catch (MalformedURLException e) {
